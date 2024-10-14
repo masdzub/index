@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Animation</title>
+    <link rel="icon" type="image/png" href="https://ucarecdn.com/95ba1730-494a-433d-90b2-7bafcbe3cf4e/-/preview/52x52/">
+    <style>
+        :root {
+            --background-color: #f4f4f4; /* Light mode background */
+            --spinner-color: #2c2c2c; /* Light mode spinner color (gray) */
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #2c2c2c; /* Dark mode background */
+                --spinner-color: #ccc; /* Dark mode spinner color (light gray) */
+            }
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--background-color);
+            transition: background-color 0.3s;
+        }
+
+        .loading-ring,
+        .loading-ring div {
+            box-sizing: border-box;
+        }
+
+        .loading-ring {
+            display: inline-block;
+            position: relative;
+            width: 120px;  /* Increased width */
+            height: 120px; /* Increased height */
+        }
+
+        .loading-ring div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 96px;   /* Increased width for inner div */
+            height: 96px;  /* Increased height for inner div */
+            margin: 12px;  /* Increased margin */
+            border: 10px solid var(--spinner-color); /* Increased border width */
+            border-radius: 50%;
+            animation: loading-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: var(--spinner-color) transparent transparent transparent;
+        }
+
+        .loading-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+        .loading-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+        .loading-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+
+        @keyframes loading-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <script>
+        // No need for JavaScript to toggle themes
+    </script>
+</body>
+</html>
