@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Timer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap'); /* Monospace font */
+        html {
+            font-family: 'Fira Code', monospace; /* Set font to Fira Code */
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #4f83cc, #6c63ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-200 transition-colors duration-300">
+    <div class="text-center p-8 rounded-lg shadow-lg dark:shadow-none max-w-md mx-auto">
+        <h1 class="text-3xl font-semibold mb-4 leading-tight">You've been idle for</h1>
+        <div class="text-8xl font-extrabold mb-6 leading-snug tracking-tight text-gradient" id="idle-time-container">
+            <span id="idle-time">000</span> seconds
+        </div>
+        <p class="text-lg font-light mb-4 tracking-wide">Embrace the calm.</p>
+        <div class="text-sm mb-6">
+            Your Highest: <span class="font-bold" id="highest-idle">000</span> seconds<br>
+            Total Idle: <span id="total-idle">000</span> seconds
+        </div>
+        <div class="text-lg italic text-gray-500 dark:text-gray-400 mb-8 leading-relaxed" id="quote">
+            "Sometimes doing nothing makes way for everything." – Unknown
+        </div>
+<!--        
+        <div class="text-xs text-gray-500 dark:text-gray-400">
+            Created by <a href="#" class="text-blue-500 hover:underline">Mas Dzub</a>. <br> Code available on <a href="#" class="text-blue-500 hover:underline">GitHub</a>.
+        </div>
+-->
+    </div>
+
+    <script>
+        let idleSeconds = 0;
+        let highestIdleTime = 0;
+        let totalIdleTime = 0;
+        let timer, quoteTimer;
+
+        function displayRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            document.getElementById('quote').innerText = quotes[randomIndex];
+        }
+
+        function formatTime(value) {
+            return value < 10 ? '00' + value : value < 100 ? '0' + value : value;
+        }
+
+        function updateIdleTime() {
+            idleSeconds++;
+            document.getElementById('idle-time').innerText = formatTime(idleSeconds);
+            totalIdleTime++;
+            document.getElementById('total-idle').innerText = formatTime(totalIdleTime);
+
+            if (idleSeconds > highestIdleTime) {
+                highestIdleTime = idleSeconds;
+                document.getElementById('highest-idle').innerText = formatTime(highestIdleTime);
+            }
+        }
+
+        window.onload = function() {
+            startIdleTimer();
+            startQuoteTimer();
+            displayRandomQuote();
+        };
+
+        function startIdleTimer() {
+            timer = setInterval(updateIdleTime, 1000);
+        }
+
+        function startQuoteTimer() {
+            quoteTimer = setInterval(displayRandomQuote, 10000);
+        }
+
+        function resetIdleTime() {
+            clearInterval(timer);
+            idleSeconds = 0;
+            document.getElementById('idle-time').innerText = formatTime(idleSeconds);
+            startIdleTimer();
+        }
+
+        window.addEventListener('mousemove', resetIdleTime);
+    </script>
+    <script src="quotes.js"></script> <!-- Link to the quotes file -->
+
+</body>
+</html>
